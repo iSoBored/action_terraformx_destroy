@@ -27,15 +27,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set dir to store files from custom action
-      run: echo "ACTION_BASE_DIR=terraformx_destroy" >> $GITHUB_ENV
-      shell: bash
-
-    - name: Checkout aws_spoke
+    - name: Checkout jlieow/action_terraformx_destroy repo to store files from custom action
       uses: actions/checkout@v3
       with:
-        repository: jlieow/${{ env.ACTION_BASE_DIR }}
-        path: ${{ env.ACTION_BASE_DIR }}
+        repository: jlieow/action_terraformx_destroy
+        path: action_terraformx_destroy
 
     - name: Export Terraform Environmental Variables
       run: |
@@ -100,6 +96,6 @@ runs:
     - name: Perform Terraformx Destroy
       working-directory: ${{ inputs.dir }}
       run: |
-        chmod +x $GITHUB_WORKSPACE/$ACTION_BASE_DIR/exe/destroy
-        $GITHUB_WORKSPACE/$ACTION_BASE_DIR/exe/destroy -active-stages=$active_stages
+        chmod +x $GITHUB_WORKSPACE/action_terraformx_destroy/exe/destroy
+        $GITHUB_WORKSPACE/action_terraformx_destroy/exe/destroy -active-stages=$active_stages
       shell: bash
