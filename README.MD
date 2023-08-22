@@ -21,6 +21,7 @@ jobs:
         id: terraformx_destroy
         uses: jlieow/terraformx_destroy@V1 # Uses an action in the repo terraformx_destroy owned by jlieow tagged as V1
         with:
+          action_ref: ${{ github.action_ref }}
           dir: ec2 # Remember to set the tag dir too
           terraform_env_variables: |
             key=value,
@@ -39,4 +40,5 @@ jobs:
                 "profile_name": ${{ toJSON(secrets.AWS_SPOKE_PROFILE_NAME) }}
               }
             ]
+          gcp_service_account_key: ${{ toJSON(secrets.GCP_SERVICE_ACCOUNT_KEY) }}
 ```
